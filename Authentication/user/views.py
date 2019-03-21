@@ -3,6 +3,7 @@ from Authentication import settings
 from django.shortcuts import render
 from rest_framework import generics, status
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from rest_framework.response import Response
 from .serializers import UserSerializer
 from django.contrib.auth import authenticate
@@ -25,6 +26,14 @@ class RegisterUser(generics.CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         serializer = UserSerializer(data=request.data)
+
+        send_mail('Hello'+username+' from userauth',
+        'Welcome to userauth, greetings from dongo kene.',
+        'dongokene21@gmail.com',
+        ['frzpete@gmail.com','patrick.okou@andela.com','brian.anyati@gmail.com',
+        'emmanuel.ogwal@andela.com', 'david.kisekka@andela.com'
+        ],
+        fail_silently=False)
 
         if serializer.is_valid():
             serializer.save()
