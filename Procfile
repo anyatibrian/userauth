@@ -1,0 +1,1 @@
+web: gunicorn userauth.wsgi:application --log-file -
